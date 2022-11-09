@@ -1,7 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import FilterVintageIcon from "@mui/icons-material/FilterVintage";
-import CartWidget from "./CartWidget";
+import React from 'react';
+
+import styled from 'styled-components';
+import FilterVintageIcon from '@mui/icons-material/FilterVintage';
+
+import CartWidget from './CartWidget';
 
 export default function Navbar() {
   return (
@@ -29,7 +31,7 @@ export default function Navbar() {
         </ul>
       </nav>
       <ul className="Icons">
-        <CartWidget color={"white"} />
+        <CartWidget color={'white'} />
       </ul>
     </NavContainer>
   );

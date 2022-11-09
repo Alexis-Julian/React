@@ -1,12 +1,16 @@
-import "./App.css";
-import styled from "styled-components";
-import Navbar from "./components/Navbar";
-import ItemListContainer from "./components/ItemListContainer";
+import React from 'react';
+
+import styled from 'styled-components';
+import './App.css';
+
+import ItemListContainer from './components/ItemListContainer';
+import Navbar from './components/Navbar';
+
 function App() {
   return (
     <DivContainer>
       <Navbar />
-      <ItemListContainer greeting={"Hola como estas?"} />
+      <ItemListContainer greeting={'Hola como estas?'} />
     </DivContainer>
   );
 }
