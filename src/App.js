@@ -14,6 +14,7 @@ function App() {
   useEffect(() => {
     const fetchProduct = async () => {
       const promesa = await GetProduct();
+      console.log(promesa);
       SetProduct(promesa);
     };
     fetchProduct();
@@ -29,19 +30,7 @@ function App() {
           element={<ItemListContainer cards={Product} />}
         />
         <Route
-          path="/category/electronics/:idp"
-          element={<ItemDetailsContainers detpro={Product} />}
-        />
-        <Route
-          path="/category/jewelery/:idp"
-          element={<ItemDetailsContainers detpro={Product} />}
-        />
-        <Route
-          path="/category/women's clothing/:idp"
-          element={<ItemDetailsContainers detpro={Product} />}
-        />
-        <Route
-          path="/category/men's clothing/:idp"
+          path="/category/:type/:idp"
           element={<ItemDetailsContainers detpro={Product} />}
         />
         <Route path="*" element={<NotFound />} />

@@ -4,9 +4,9 @@ import Card from "./Card";
 import styled from "styled-components";
 function ItemDetailsContainers({ detpro }) {
   const { idp } = useParams();
+  console.log(detpro);
   let item;
   item = detpro.filter((ite) => ite.id === parseInt(idp));
-  console.log(item);
   return (
     <ContDetails>
       <Card product={item[0]} />
