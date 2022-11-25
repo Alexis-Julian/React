@@ -31,7 +31,11 @@ function App() {
         />
         <Route
           path="/category/:type/:idp"
-          element={<ItemDetailsContainers detpro={Product} />}
+          element={
+            <ItemDetailsContainers
+              detpro={Product.length > 0 ? Product : <div>Loading...</div>}
+            />
+          }
         />
         <Route path="*" element={<NotFound />} />
       </Routes>

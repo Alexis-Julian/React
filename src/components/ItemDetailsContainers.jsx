@@ -4,12 +4,18 @@ import Card from "./Card";
 import styled from "styled-components";
 function ItemDetailsContainers({ detpro }) {
   const { idp } = useParams();
-  console.log(detpro);
-  let item;
-  item = detpro.filter((ite) => ite.id === parseInt(idp));
+  const ShowDetailsCard = () => {
+    let item;
+    if (detpro.length > 0) {
+      item = detpro.filter((ite) => ite.id === parseInt(idp));
+      return <Card product={item[0]} />;
+    } else {
+      return detpro;
+    }
+  };
   return (
     <ContDetails>
-      <Card product={item[0]} />
+      <ShowDetailsCard />
     </ContDetails>
   );
 }
