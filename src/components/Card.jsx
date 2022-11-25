@@ -39,6 +39,7 @@ const ContCard = styled.div`
   overflow: hidden;
   border: 1px solid black;
   border-radius: 3%;
+
   .ContCard_category {
     display: flex;
     flex-grow: 1;

@@ -7,7 +7,20 @@ function ItemDetailsContainers({ detpro }) {
   let item;
   item = detpro.filter((ite) => ite.id === parseInt(idp));
   console.log(item);
-  return <Card product={item[0]} />;
+  return (
+    <ContDetails>
+      <Card product={item[0]} />
+    </ContDetails>
+  );
 }
+
+const ContDetails = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+
+  overflow: hidden;
+`;
 
 export default ItemDetailsContainers;
