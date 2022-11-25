@@ -21,7 +21,11 @@ function Card({ product }) {
         <img className="img" src={image} />
       </div>
       <div className="ContCard_price">${price}</div>
-      {idp == undefined ? <ShowDetails /> : <ItemCount />}
+      {idp == undefined ? (
+        <ShowDetails />
+      ) : (
+        <ItemCount stock={20} initial={0} />
+      )}
     </ContCard>
   );
 }

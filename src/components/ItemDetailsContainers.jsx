@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Card from "./Card";
+import styled from "styled-components";
 function ItemDetailsContainers({ detpro }) {
   const { idp } = useParams();
   let item;
