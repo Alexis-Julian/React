@@ -1,30 +1,39 @@
 import React from "react";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Card from "./Card";
 import GetProduct from "../helper/GetProduct";
 import styled from "styled-components";
-function ItemListContainer() {
-  const [Product, SetProduct] = useState(<div>Loading...</div>);
-  console.log(Product);
-  GetProduct();
+import { useEffect, useState } from "react";
+function ItemListContainer({ cards }) {
+  let render = [];
+  const [Renders, SetRenders] = useState([<div>Loading...</div>]);
+  const { type } = useParams();
+  /* UseEffect para inicio de pagina o reinicio*/
   useEffect(() => {
-    GetProduct().then((data) => SetProduct(data));
-  }, []);
-  const ShowProduct = () => {
-    if (Product.length > 0) {
-      return Product.map((ele) => {
-        return <Card product={ele} />;
-      });
-    } else {
-      return Product;
+    SetRenders(cards);
+  }, [cards]);
+  /* UseEffect se ejecuta siempre para restablecer el array y mostrar los productos adecuados al usuario */
+  useEffect(() => {
+    render = cards;
+  });
+  /* UseEffect se ejecuta solamente cuando el UseParams "Type" cambia para mostrar los valores que el usuario pidio */
+  useEffect(() => {
+    if (type !== undefined) {
+      render = render.filter((ele) => ele.category === type);
+      console.log(render);
     }
-  };
-  return <ContItemList>{ShowProduct()}</ContItemList>;
+    SetRenders(render);
+  }, [type]);
+  return (
+    <ContItemList>
+      {Renders.map((ele) => {
+        return <Card product={ele} />;
+      })}
+    </ContItemList>
+  );
 }
 const ContItemList = styled.main`
   height: 80vh;
-  width: 100vw;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
