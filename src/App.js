@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./style/App.css";
+import { Route, Routes, useParams } from "react-router-dom";
+import ItemListContainer from "./components/ItemListContainer";
+import NavBar from "./components/NavBar";
+import styled from "styled-components";
+import ContainerContext from "./helper/ContainerContext";
+import SignIn from "./pages/SignIn";
+import NotFound from "./pages/NotFound";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ContainerContext>
+      <Container>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<ItemListContainer />} />
+          <Route path="/category/:cate" element={<ItemListContainer />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Container>
+    </ContainerContext>
   );
 }
-
+const Container = styled.div`
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+`;
 export default App;
