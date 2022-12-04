@@ -1,35 +1,44 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { ApiProductContext } from "../helper/ContainerContext";
+import SppinerLoading from "./widgets/SppinerLoading";
 function NavLinks(data) {
+  /* const { User } = useContext(ApiProductContext); */
+  const [LinksDB, SetLinksDB] = useState();
   const { HandleClick, BurgerActive } = data;
-  const pages = [
-    { name: "Inicio", route: "/" },
-    { name: "Hombres", route: "/category/men's clothing" },
-    { name: "Mujeres", route: "/category/women's clothing" },
-    { name: "Bebes", route: "/category/bebes" },
-    { name: "Joyas", route: "/category/jewelery" },
-    { name: "Electronica", route: "/category/electronics" },
-    { name: "Registrarse", route: "/signin" },
-    { name: "Mas informacion", route: "/" },
-  ];
 
+  const { DBPeticion } = useContext(ApiProductContext);
+  useEffect(() => {
+    DBPeticion("Categorias").then((res) => SetLinksDB(res));
+  }, []);
   const Links = () => {
-    let id = 0;
-    return pages.map((page) => {
-      id = id + 1;
-      return (
-        <Link key={id} to={`${page.route}`}>
-          <li>{page.name}</li>
-        </Link>
-      );
-    });
+    if (LinksDB) {
+      return LinksDB.map((res) => {
+        return (
+          <Link key={res.categoria} to={`/category/${res.categoria}`}>
+            <li>{res.description}</li>
+          </Link>
+        );
+      });
+    } else {
+      return <SppinerLoading />;
+    }
   };
   return (
     <ContDropRightMenu>
       <nav className={`Nav ${BurgerActive ? "" : String(BurgerActive)}`}>
         <ul>
+          <Link to={"/"}>
+            <li>Inicio</li>
+          </Link>
           <Links />
+          <Link to={"/signin"}>
+            <li>Registrarse</li>
+          </Link>
+          <Link to={"/"}>
+            <li>Mas informacion</li>
+          </Link>
         </ul>
       </nav>
       <div

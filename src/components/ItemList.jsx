@@ -1,14 +1,17 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-function Card({ Product }) {
-  const { title, category, description, image, price, rating } = Product;
+function ItemList({ Product }) {
+  const { idLink, id, title, category, img, price, rate } = Product;
+  console.log(Product);
+  const { cate } = useParams();
   return (
     <ContCard>
       <div className="ContCard__imgrate">
-        <Link>
+        <Link to={`/category/${category}/${idLink}`}>
           <figure>
-            <img height={"150px"} width={"150px"} src={image} alt="Card" />
+            <img height={"150px"} width={"150px"} src={img} alt="Card" />
           </figure>
         </Link>
       </div>
@@ -16,7 +19,7 @@ function Card({ Product }) {
         <div className="ContCard__category">{category}</div>
         <div className="ContCard__description">{title}</div>
         <div className="ContCard__price">
-          <p>$ {price}</p> <i>⭐{rating.rate}</i>
+          <p>$ {price}</p> <i>⭐{rate}</i>
         </div>
       </div>
     </ContCard>
@@ -68,4 +71,4 @@ const ContCard = styled.li`
     }
   }
 `;
-export default Card;
+export default ItemList;

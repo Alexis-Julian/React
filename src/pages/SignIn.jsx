@@ -2,36 +2,82 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import NavBar from "../components/NavBar";
+import { useForm } from "react-hook-form";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
 function SignIn() {
+  const db = getFirestore();
+  const Users = collection(db, "Usuarios");
+  const { register, handleSubmit } = useForm();
+  const OnSubmit = (data) => {
+    addDoc(Users, data).then((res) => console.log(res.id));
+  };
   return (
     <ContSignIn>
       <h3>Registrar Usuario</h3>
       <div className="content_form">
         <h4>Datos de usuario</h4>
-        <form action="">
+        <form onSubmit={handleSubmit(OnSubmit)}>
           <div>
-            <input type="text" placeholder="Email" />
+            <input
+              type="text"
+              placeholder="Email"
+              {...register("email")}
+              required
+            />
           </div>
           <div>
-            <input type="password" placeholder="Contraseña" />
+            <input
+              type="password"
+              placeholder="Contraseña"
+              {...register("password")}
+              required
+            />
           </div>
           <div>
-            <input type="password" placeholder="Confirmar contraseña" />
+            <input
+              type="password"
+              placeholder="Confirmar contraseña"
+              {...register("passwordtwo")}
+              required
+            />
+          </div>
+          <div>
+            <input type="date" {...register("date")} required />
           </div>
           <div>
             <p>Informacion personal</p>
           </div>
           <div>
-            <input type="text" placeholder="Nombre" />
+            <input
+              type="text"
+              placeholder="Nombre"
+              {...register("name")}
+              required
+            />
           </div>
           <div>
-            <input type="text" placeholder=" Apellido" />
+            <input
+              type="text"
+              placeholder=" Apellido"
+              {...register("surname")}
+              required
+            />
           </div>
           <div>
-            <input type="text" placeholder="Numero de DNI o CUIT" />
+            <input
+              type="text"
+              placeholder="Numero de DNI o CUIT"
+              {...register("dni")}
+              required
+            />
           </div>
           <div>
-            <input type="number" placeholder="Numero de telefono" />
+            <input
+              type="number"
+              placeholder="Numero de telefono"
+              {...register("phone")}
+              required
+            />
           </div>
           <div className="button">
             <button>Enviar</button>

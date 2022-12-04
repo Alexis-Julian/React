@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-function CardUser({ Usuario }) {
+import PaperPlane from "./widgets/PlanePaper";
+function UserCard({ Usuario }) {
   const { name, phone, direccionts, img, compras } = Usuario[0];
-
   return (
     <ContUser>
       <div className="ContUser__profile">
         <div className="ContUser__profile_img">
-          <img src={img} alt="product" />
+          {img ? (
+            <img src={img} alt="product" />
+          ) : (
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_640.png" />
+          )}
         </div>
         <div className="ContUser__profile_nombre">
           <h2>{name}</h2>
@@ -41,9 +45,18 @@ function CardUser({ Usuario }) {
           <li>Producto5</li>
         </ul>
       </nav>
-      <div>
-        <span>Dark mode</span>
-        <span>Translate</span>
+      <div className="buttons_info">
+        <div>
+          <span>
+            <PaperPlane />
+          </span>
+        </div>
+        <div>
+          <span>Buys</span>
+        </div>
+        <div>
+          <span>span</span>
+        </div>
       </div>
     </ContUser>
   );
@@ -57,7 +70,22 @@ const ContUser = styled.div`
   grid-template-columns: 1fr;
   grid-template-rows: 0.7fr 0.4fr 2fr 0.3fr;
   gap: 5px 0px;
+  .buttons_info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
 
+    div {
+      flex-grow: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      grid-column-gap: 0px;
+      grid-row-gap: 0px;
+    }
+  }
   .ContUser__profile {
     padding: 10px;
     display: grid;
@@ -125,4 +153,4 @@ const ContUser = styled.div`
     }
   }
 `;
-export default CardUser;
+export default UserCard;

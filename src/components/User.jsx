@@ -1,16 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { BsFillPersonFill } from "react-icons/bs";
-import Close from "./Close";
+import Close from "./widgets/Close";
 import styled from "styled-components";
-import CardUser from "../CardUser";
-import CardUserLogin from "../CardUserLogin";
-import { ApiProductContext } from "../../helper/ContainerContext";
+import UserCard from "./UserCard";
+import UserCardLogin from "./UserCardLogin";
+import { ApiProductContext } from "../helper/ContainerContext";
 
 function User() {
   const { User } = useContext(ApiProductContext);
-  useEffect(() => {
-    console.log(User);
-  }, [User]);
   /* Click al icono de user */
   const [ActiveMenuUser, SetActiveMenuUser] = useState(false);
   const HandleClickMenuUser = () => {
@@ -25,9 +22,9 @@ function User() {
             <Close />
           </div>
           {User ? (
-            <CardUser Usuario={User} />
+            <UserCard Usuario={User} />
           ) : (
-            <CardUserLogin
+            <UserCardLogin
               alert={ActiveMenuUser}
               HandleClick={HandleClickMenuUser}
             />

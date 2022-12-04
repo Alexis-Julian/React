@@ -6,6 +6,8 @@ import styled from "styled-components";
 import ContainerContext from "./helper/ContainerContext";
 import SignIn from "./pages/SignIn";
 import NotFound from "./pages/NotFound";
+import ItemDetail from "./components/ItemDetail";
+import ItemDetailsContainer from "./components/ItemDetailsContainer";
 function App() {
   return (
     <ContainerContext>
@@ -13,7 +15,8 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<ItemListContainer />} />
-          <Route path="/category/:cate" element={<ItemListContainer />} />
+          <Route path="/category/:cate" element={<ItemDetailsContainer />} />
+          <Route path="/category/:cate/:idp" element={<ItemDetail />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
@@ -25,6 +28,5 @@ const Container = styled.div`
   position: relative;
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
 `;
 export default App;

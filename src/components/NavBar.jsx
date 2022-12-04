@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import NavLinks from "./NavLinks";
-import Cart from "./widgets/Cart";
+import Cart from "./Cart";
 import Heart from "./widgets/Heart";
-import User from "./widgets/User";
+import User from "./User";
 import { useParams } from "react-router-dom";
 
 function NavBar() {
   const [BurgerActive, SetBurgerActive] = useState(false);
+
   const HandleClick = () => {
     SetBurgerActive(!BurgerActive);
   };
+
   const BurgerStyles = () => {
     return (
       <div

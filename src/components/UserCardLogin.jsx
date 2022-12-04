@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { DBGetLogins } from "../helper/FetchLogin";
 import { ApiProductContext } from "../helper/ContainerContext";
 
-function CardUserLogin({ alert, HandleClick }) {
+function UserCardLogin({ alert, HandleClick }) {
   const { User, SetUser } = useContext(ApiProductContext);
   /* Recuperacion de datos del formulario  */
   const { register, handleSubmit } = useForm();
@@ -196,4 +196,4 @@ const ContUserLogin = styled.div`
     }
   }
 `;
-export default CardUserLogin;
+export default UserCardLogin;
