@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import NavLinks from "./NavLinks";
 import Cart from "./Cart";
-import Heart from "./widgets/Heart";
+import Heart from "./Heart";
 import User from "./User";
 import { useParams } from "react-router-dom";
 

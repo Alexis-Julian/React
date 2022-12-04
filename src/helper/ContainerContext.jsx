@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
 import { resolvePath } from "react-router-dom";
-import { FetchProduct } from "./ApiFetchProduct";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 export const ApiProductContext = createContext();
@@ -34,7 +33,6 @@ export default function ContainerContext({ children }) {
   useEffect(() => {
     DBPeticion("Items").then((res) => SetProducts(res));
   }, []);
-  console.log(Products);
   /* Cierre de sesion de la session */
   useEffect(() => {
     return window.sessionStorage.removeItem("user");

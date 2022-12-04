@@ -8,7 +8,6 @@ import {
   where,
 } from "firebase/firestore";
 function ItemDetail({ Product }) {
-  useEffect(() => {}, []);
   return <div></div>;
 }
 

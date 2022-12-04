@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import swal from "sweetalert";
 import { useForm } from "react-hook-form";
 import { DBGetLogins } from "../helper/FetchLogin";
 import { ApiProductContext } from "../helper/ContainerContext";
@@ -23,10 +22,6 @@ function UserCardLogin({ alert, HandleClick }) {
         .then((res) => res && SetUser(res))
         .then((res) => res, SetLoading(!Loading));
   }, [Form]);
-
-  useEffect(() => {
-    alert && swal("Debes estar logeado para visualizar este contenido");
-  }, [alert]);
 
   return (
     <ContUserLogin>

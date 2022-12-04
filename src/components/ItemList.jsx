@@ -4,8 +4,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 function ItemList({ Product }) {
   const { idLink, id, title, category, img, price, rate } = Product;
-  console.log(Product);
-  const { cate } = useParams();
   return (
     <ContCard>
       <div className="ContCard__imgrate">

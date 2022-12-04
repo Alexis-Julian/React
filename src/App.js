@@ -8,6 +8,7 @@ import SignIn from "./pages/SignIn";
 import NotFound from "./pages/NotFound";
 import ItemDetail from "./components/ItemDetail";
 import ItemDetailsContainer from "./components/ItemDetailsContainer";
+import Cart from "./components/Cart";
 function App() {
   return (
     <ContainerContext>
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<ItemListContainer />} />
           <Route path="/category/:cate" element={<ItemDetailsContainer />} />
           <Route path="/category/:cate/:idp" element={<ItemDetail />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
