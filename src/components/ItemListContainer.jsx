@@ -25,7 +25,7 @@ const ContItemListContainer = styled.ul`
   flex-direction: column;
   gap: 10px;
   overflow: scroll;
-  height: 100vh;
+  height: 85vh;
   width: 100vw;
   .asdasd {
     position: absolute;

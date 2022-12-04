@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import PaperPlane from "./widgets/PlanePaper";
 function UserCard({ Usuario }) {
-  const { name, phone, direccionts, img, compras } = Usuario[0];
+  const { user, phone, direccionts, img } = Usuario[0];
   return (
     <ContUser>
       <div className="ContUser__profile">
@@ -14,7 +14,7 @@ function UserCard({ Usuario }) {
           )}
         </div>
         <div className="ContUser__profile_nombre">
-          <h2>{name}</h2>
+          <h2>{user}</h2>
           <p className="">Nombre</p>
         </div>
       </div>

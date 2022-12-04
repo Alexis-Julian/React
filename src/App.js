@@ -8,7 +8,7 @@ import SignIn from "./pages/SignIn";
 import NotFound from "./pages/NotFound";
 import ItemDetail from "./components/ItemDetail";
 import ItemDetailsContainer from "./components/ItemDetailsContainer";
-import Cart from "./components/Cart";
+import Cart from "./components/CartWidget";
 function App() {
   return (
     <ContainerContext>
@@ -30,5 +30,6 @@ const Container = styled.div`
   position: relative;
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
 `;
 export default App;

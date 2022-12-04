@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import NavLinks from "./NavLinks";
-import Cart from "./Cart";
+import Cart from "./CartWidget";
 import Heart from "./Heart";
 import User from "./User";
-import { useParams } from "react-router-dom";
+import swal from "sweetalert";
+import { ApiProductContext } from "../helper/ContainerContext";
 
 function NavBar() {
+  /* const { User } = useContext(ApiProductContext); */
   const [BurgerActive, SetBurgerActive] = useState(false);
-
   const HandleClick = () => {
     SetBurgerActive(!BurgerActive);
   };
-
+  const HandleClickCartUser = (Section) => {
+    swal("Hola!,Inicie sesion para ingresar a esta sección");
+  };
   const BurgerStyles = () => {
     return (
       <div
@@ -39,8 +43,12 @@ function NavBar() {
         </div>
       </Title>
       <ContIcons>
-        <Cart />
-        <Heart />
+        <Link to={"/cart"}>
+          <Cart />
+        </Link>
+        <Link to={"/heart"}>
+          <Heart />
+        </Link>
       </ContIcons>
       <Input>
         <input type="text" placeholder="¿Que desea buscar?" />
@@ -58,6 +66,11 @@ const ContNavBar = styled.header`
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   z-index: 99999999999;
+  height: 15vh;
+  a {
+    text-decoration: none;
+    color: white;
+  }
 `;
 /* Contiene el BurgerMenu-User */
 const ContBurgUser = styled.div`
@@ -178,7 +191,7 @@ const ContIcons = styled.div`
 const Input = styled.div`
   grid-column: 1/4;
   display: grid;
-  padding: 6px;
+  padding: 8px;
 `;
 
 export default NavBar;

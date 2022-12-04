@@ -4,14 +4,16 @@ import { Link } from "react-router-dom";
 import { ApiProductContext } from "../helper/ContainerContext";
 import SppinerLoading from "./widgets/SppinerLoading";
 function NavLinks(data) {
-  /* const { User } = useContext(ApiProductContext); */
+  const { User, SetUser } = useContext(ApiProductContext);
   const [LinksDB, SetLinksDB] = useState();
+  const [UserConnected, SetUserConnected] = useState();
   const { HandleClick, BurgerActive } = data;
-
   const { DBPeticion } = useContext(ApiProductContext);
+
   useEffect(() => {
     DBPeticion("Categorias").then((res) => SetLinksDB(res));
   }, []);
+
   const Links = () => {
     if (LinksDB) {
       return LinksDB.map((res) => {
@@ -25,6 +27,31 @@ function NavLinks(data) {
       return <SppinerLoading />;
     }
   };
+  useEffect(() => {
+    const ModdifiedLink = () => {
+      if (User) {
+        window.localStorage.removeItem("user");
+        window.sessionStorage.removeItem("user");
+        return (
+          <Link
+            to={"/"}
+            onClick={() => {
+              SetUser(null);
+            }}
+          >
+            <li>Desconectar</li>
+          </Link>
+        );
+      } else {
+        return (
+          <Link to={"/signin"}>
+            <li>Registrarse</li>
+          </Link>
+        );
+      }
+    };
+    SetUserConnected(() => ModdifiedLink());
+  }, [User]);
   return (
     <ContDropRightMenu>
       <nav className={`Nav ${BurgerActive ? "" : String(BurgerActive)}`}>
@@ -33,9 +60,7 @@ function NavLinks(data) {
             <li>Inicio</li>
           </Link>
           <Links />
-          <Link to={"/signin"}>
-            <li>Registrarse</li>
-          </Link>
+          {UserConnected}
           <Link to={"/"}>
             <li>Mas informacion</li>
           </Link>

@@ -11,16 +11,19 @@ function UserCardLogin({ alert, HandleClick }) {
   const { register, handleSubmit } = useForm();
   const [Form, SetForm] = useState(null);
   const [Loading, SetLoading] = useState(false);
-  console.log("123");
+  const [Checked, SetChecked] = useState(false);
   const onSubmit = (DataForm) => {
     SetForm(DataForm);
   };
-
+  const handleChangeChecked = (event) => {
+    SetChecked((current) => !current);
+  };
   useEffect(() => {
     Form &&
-      DBGetLogins(Form)
+      DBGetLogins(Form, Checked)
         .then((res) => res && SetUser(res))
         .then((res) => res, SetLoading(!Loading));
+    return () => {};
   }, [Form]);
 
   return (
@@ -71,7 +74,11 @@ function UserCardLogin({ alert, HandleClick }) {
                 <div className="help_user-check">
                   <span>Recordar: </span>
                   <span>
-                    <input type="checkbox" />
+                    <input
+                      type="checkbox"
+                      value={Checked}
+                      onChange={handleChangeChecked}
+                    />
                   </span>
                 </div>
               </span>
