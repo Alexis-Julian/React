@@ -11,7 +11,7 @@ function UserCardLogin({ alert, HandleClick }) {
   const { register, handleSubmit } = useForm();
   const [Form, SetForm] = useState(null);
   const [Loading, SetLoading] = useState(false);
-
+  console.log("123");
   const onSubmit = (DataForm) => {
     SetForm(DataForm);
   };
