@@ -9,6 +9,11 @@ function NavLinks(data) {
   const [UserConnected, SetUserConnected] = useState();
   const { HandleClick, BurgerActive } = data;
   const { DBPeticion } = useContext(ApiProductContext);
+  useEffect(() => {
+    return () => {
+      console.log("123");
+    };
+  }, []);
 
   useEffect(() => {
     DBPeticion("Categorias").then((res) => SetLinksDB(res));
@@ -29,14 +34,17 @@ function NavLinks(data) {
   };
   useEffect(() => {
     const ModdifiedLink = () => {
-      if (User) {
+      const Remove = () => {
         window.localStorage.removeItem("user");
         window.sessionStorage.removeItem("user");
+        SetUser(null);
+      };
+      if (User) {
         return (
           <Link
             to={"/"}
             onClick={() => {
-              SetUser(null);
+              Remove();
             }}
           >
             <li>Desconectar</li>
@@ -105,7 +113,7 @@ const ContDropRightMenu = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        font-weight: 800;
+        font-weight: 400;
         text-decoration: none;
         list-style: none;
       }

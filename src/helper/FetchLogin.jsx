@@ -39,7 +39,9 @@ export const DBGetLoginsLocalStorage = (SearchUser) => {
   const db = getFirestore();
   const LoginLocalStorage = new Promise((resolve, rej) => {
     const docRef = doc(db, "Usuarios", SearchUser);
-    getDoc(docRef).then((res) => (res ? resolve(res.data()) : rej(null)));
+    getDoc(docRef).then((res) =>
+      res ? resolve({ ...res.data(), idUser: res.id }) : rej(null)
+    );
   });
   return LoginLocalStorage;
 };

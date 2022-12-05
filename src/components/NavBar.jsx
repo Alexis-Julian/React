@@ -4,18 +4,21 @@ import styled from "styled-components";
 import NavLinks from "./NavLinks";
 import Cart from "./CartWidget";
 import Heart from "./Heart";
-import User from "./User";
-import swal from "sweetalert";
+import UserWidget from "./User";
+import Swal from "sweetalert2";
 import { ApiProductContext } from "../helper/ContainerContext";
 
 function NavBar() {
-  /* const { User } = useContext(ApiProductContext); */
+  const { User } = useContext(ApiProductContext);
   const [BurgerActive, SetBurgerActive] = useState(false);
   const HandleClick = () => {
     SetBurgerActive(!BurgerActive);
   };
-  const HandleClickCartUser = (Section) => {
-    swal("Hola!,Inicie sesion para ingresar a esta sección");
+  const HandleClickCartUser = () => {
+    Swal.fire({
+      title: "Error",
+      text: "Debes iniciar sesion ",
+    });
   };
   const BurgerStyles = () => {
     return (
@@ -30,20 +33,28 @@ function NavBar() {
     );
   };
   const data = { HandleClick, BurgerActive };
+
   return (
     <ContNavBar>
       {NavLinks(data)}
       <ContBurgUser>
         <BurgerMenu>{BurgerStyles()}</BurgerMenu>
-        <User />
+        <UserWidget />
       </ContBurgUser>
       <Title>
         <div>
-          <h2>Jazmin</h2>
+          <Link to={"/"}>
+            <h2>Jazmin</h2>
+          </Link>
         </div>
       </Title>
       <ContIcons>
-        <Link to={"/cart"}>
+        <Link
+          to={User ? "/cart" : "/."}
+          onClick={() => {
+            !User && HandleClickCartUser();
+          }}
+        >
           <Cart />
         </Link>
         <Link to={"/heart"}>
@@ -179,6 +190,11 @@ const Title = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 1.2em;
+  a {
+    h2 {
+      font-weight: 400;
+    }
+  }
 `;
 /* Contiene los iconos Heart - Cart */
 const ContIcons = styled.div`

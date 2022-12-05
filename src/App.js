@@ -8,7 +8,7 @@ import SignIn from "./pages/SignIn";
 import NotFound from "./pages/NotFound";
 import ItemDetail from "./components/ItemDetail";
 import ItemDetailsContainer from "./components/ItemDetailsContainer";
-import Cart from "./components/CartWidget";
+import Cart from "./components/Cart";
 function App() {
   return (
     <ContainerContext>

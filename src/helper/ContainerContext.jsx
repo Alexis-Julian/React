@@ -1,7 +1,14 @@
+/* //@ts-check */
 import React, { createContext, useState, useEffect } from "react";
 import { resolvePath } from "react-router-dom";
 import { DBGetLoginsLocalStorage } from "./FetchLogin";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 
 export const ApiProductContext = createContext();
 
@@ -48,11 +55,22 @@ export default function ContainerContext({ children }) {
         window.localStorage.setItem("user", JSON.stringify(User[0].idUser));
     }
   }, [User]);
-  /* Carrito */
-  useEffect(() => {}, []);
+  /* Carrito desde la DB */
+  const [ArrayCart, SetArrayCart] = useState();
+  useEffect(() => {
+    User ? SetArrayCart(User[0].cart) : SetArrayCart(null);
+  }, [User]);
   return (
     <ApiProductContext.Provider
-      value={{ Products, SetProducts, User, SetUser, DBPeticion }}
+      value={{
+        Products,
+        SetProducts,
+        User,
+        SetUser,
+        DBPeticion,
+        SetArrayCart,
+        ArrayCart,
+      }}
     >
       {children}
     </ApiProductContext.Provider>

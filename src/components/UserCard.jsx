@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import PaperPlane from "./widgets/PlanePaper";
 function UserCard({ Usuario }) {
-  const { user, phone, direccionts, img } = Usuario[0];
+  const { name, user, phone, img, dni, email } = Usuario[0];
   return (
     <ContUser>
       <div className="ContUser__profile">
@@ -10,30 +10,31 @@ function UserCard({ Usuario }) {
           {img ? (
             <img src={img} alt="product" />
           ) : (
-            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_640.png" />
+            <img src="https://i.imgur.com/9zz7ubU.jpg" />
           )}
         </div>
         <div className="ContUser__profile_nombre">
-          <h2>{user}</h2>
+          <h2>{name}</h2>
           <p className="">Nombre</p>
         </div>
       </div>
       <ul className="ContUser__description">
-        <li className="ContUser__description_phone">
-          <i>Phone:</i>
-          <p>+54 {phone}</p>
+        <li>
+          <div>Phone</div>
+          <i>{phone}</i>
         </li>
-        <li className="ContUser__description_direction">
-          <i>Direccion:</i>
-          <p> {direccionts}</p>
+        <li>
+          <div>DNI</div>
+          <i>{dni}</i>
         </li>
-        <li className="ContUser__description_direction">
-          <i>Fecha de nacimiento:</i>
-          <p>15/04/1998</p>
+        <li>
+          <div>Email</div>
+          <i>alexisjrojas</i>
         </li>
-        <li className="ContUser__description_direction">
-          <i>Creacion de cuenta:</i>
-          <p>1/03/2021</p>
+        <li>
+          <div>Usuario</div>
+          <i>{user}</i>
+          <i></i>
         </li>
       </ul>
       <nav>
@@ -103,7 +104,7 @@ const ContUser = styled.div`
         height: 150px;
         width: 150px;
         border-radius: 50%;
-        border: 4px outset white;
+        border: 4px outset #f3efe0;
         box-shadow: -1px 1px 10px 3px black;
       }
     }
@@ -117,8 +118,11 @@ const ContUser = styled.div`
       padding-left: 5px;
       p {
         display: inline;
+        color: #222222;
       }
       h2 {
+        font-weight: 500;
+        color: #434242;
         border-bottom: 1px solid;
       }
     }
@@ -127,28 +131,26 @@ const ContUser = styled.div`
   .ContUser__description {
     height: 80%;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 2px;
     li {
-      color: gray;
       display: flex;
+      flex-direction: column;
+      text-align: center;
       font-size: 16px;
+      font-weight: 500;
       width: 100%;
-      align-items: flex-end;
+      color: transparent;
+      -webkit-text-stroke: 0.8px #222222;
+      gap: 2px;
       i {
-        min-width: 40%;
-      }
-      p {
-        text-decoration: underline;
-        font-size: 20px;
-        display: flex;
-        width: 100%;
-        justify-content: center;
-        text-align: center;
-        color: black;
-        font-weight: 200;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        color: white;
       }
     }
   }

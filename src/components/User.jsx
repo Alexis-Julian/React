@@ -6,7 +6,7 @@ import UserCard from "./UserCard";
 import UserCardLogin from "./UserCardLogin";
 import { ApiProductContext } from "../helper/ContainerContext";
 
-function User() {
+function UserWidget() {
   const { User } = useContext(ApiProductContext);
   /* Click al icono de user */
   const [ActiveMenuUser, SetActiveMenuUser] = useState(false);
@@ -76,4 +76,4 @@ const ContDropDownMenu = styled.div`
   }
 `;
 
-export default User;
+export default UserWidget;
