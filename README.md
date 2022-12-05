@@ -12,11 +12,12 @@ In the project directory, you can run:
 2.cd React
 
 3. Instala dependencia
- 1.npm install --save aos@next (Control de animacion)
- 2.npm install firebase (Control de la DB)
- 3.npm install --save sweetalert2 sweetalert2-react-content (Control de alertas en pantallas)
- 4.npm install react-icons --save (Control para insertar iconos en la app)
- 5.npm i react-hook-form (Control de formularios)
+ 
+1.npm install --save aos@next (Control de animacion)
+2.npm install firebase (Control de la DB)
+3.npm install --save sweetalert2 sweetalert2-react-content (Control de alertas en pantallas)
+4.npm install react-icons --save (Control para insertar iconos en la app)
+5.npm i react-hook-form (Control de formularios)
 
 4.npm start (Inicializiar proyecto)
 
