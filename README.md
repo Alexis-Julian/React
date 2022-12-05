@@ -22,10 +22,10 @@ In the project directory, you can run:
 
 ### Deploy en Vercel
 
-App:https://react-olive-eta.vercel.app/
-
-
-### Adapatada solamente a celular 
+App:https://react-olive-eta.vercel.app/ (Adapatada solamente a celular)
 
 
 ### Motivo de creacion : Fines educativos
+
+ 
+ Copyright 2022 por Alexis Rojas
