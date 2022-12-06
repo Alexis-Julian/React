@@ -1,8 +1,32 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PaperPlane from "./widgets/PlanePaper";
+import { getFirestore, getDoc, doc } from "firebase/firestore";
+import SppinerLoading from "./widgets/SppinerLoading";
 function UserCard({ Usuario }) {
-  const { name, user, phone, img, dni, email } = Usuario[0];
+  const { name, user, phone, img, dni, email, idUser } = Usuario[0];
+  const [Buys, SetBuys] = useState(null);
+  useEffect(() => {
+    const db = getFirestore();
+    const UserCheckout = doc(db, "Usuarios", idUser);
+    getDoc(UserCheckout).then((snapshot) => SetBuys(snapshot.data().checkout));
+  }, []);
+
+  const RenderOrdersId = () => {
+    if (Buys) {
+      return Buys.map((ele) => {
+        return (
+          <li className="list_orders" key={ele.OrderId}>
+            <div>{ele.Date}</div>
+            <div>{ele.OrderId}</div>
+            <div>{ele.TotalPrice}</div>
+          </li>
+        );
+      });
+    } else {
+      return <SppinerLoading />;
+    }
+  };
   return (
     <ContUser>
       <div className="ContUser__profile">
@@ -37,13 +61,9 @@ function UserCard({ Usuario }) {
           <i></i>
         </li>
       </ul>
-      <nav>
-        <ul>
-          <li>Producto1</li>
-          <li>Producto2</li>
-          <li>Producto3</li>
-          <li>Producto4</li>
-          <li>Producto5</li>
+      <nav className="ContUser__orders">
+        <ul className="CountUser__orders-lista">
+          <RenderOrdersId />
         </ul>
       </nav>
       <div className="buttons_info">
@@ -151,6 +171,25 @@ const ContUser = styled.div`
         font-weight: 500;
         letter-spacing: 1px;
         color: white;
+      }
+    }
+  }
+  .ContUser__orders {
+    height: 100%;
+    .CountUser__orders-lista {
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      gap: 10px;
+      .list_orders {
+        flex-grow: 1;
+        display: flex;
+        padding: 2px;
+        background-color: white;
+        div {
+          display: flex;
+          flex-grow: 1;
+        }
       }
     }
   }

@@ -10,14 +10,10 @@ import { useEffect } from "react";
 import {
   getFirestore,
   collection,
-  getDocs,
   getDoc,
   updateDoc,
   doc,
   addDoc,
-  setDoc,
-  query,
-  where,
 } from "firebase/firestore";
 AOS.init();
 
@@ -58,7 +54,15 @@ function Cart() {
       SetPriceTotal(acum);
     }
   }, [ArrayCart]);
+
   const AlertBuyComplete = () => {
+    const today = new Date();
+    let options = {
+      month: "numeric",
+      day: "numeric",
+      year: "numeric",
+    };
+    let now = today.toLocaleString("es-LA", options);
     const db = getFirestore();
     if (ArrayCart && User) {
       const FetchCheckoutUser = doc(db, "Usuarios", User[0].idUser);
@@ -83,7 +87,12 @@ function Cart() {
               updateDoc(SendCheckoutUser, {
                 checkout: [
                   ...snapshot.data().checkout,
-                  { Produtcs: [...ArrayCart], OrderId: id },
+                  {
+                    Produtcs: [...ArrayCart],
+                    OrderId: id,
+                    TotalPrice: PriceTotal,
+                    Date: now,
+                  },
                 ],
               });
               Swal.fire({
