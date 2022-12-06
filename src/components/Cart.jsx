@@ -1,15 +1,29 @@
 //@ts-check
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { ApiProductContext } from "../helper/ContainerContext";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import SpinnerLoading from "./widgets/SppinerLoading";
 import "aos/dist/aos.css";
+import { useEffect } from "react";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  getDoc,
+  updateDoc,
+  doc,
+  addDoc,
+  setDoc,
+  query,
+  where,
+} from "firebase/firestore";
 AOS.init();
 
 function Cart() {
-  const { ArrayCart } = useContext(ApiProductContext);
+  const { SetArrayCart, ArrayCart, User } = useContext(ApiProductContext);
+  const [PriceTotal, SetPriceTotal] = useState(0);
   const RenderProductCard = () => {
     if (ArrayCart) {
       return ArrayCart.map((ele) => {
@@ -34,14 +48,65 @@ function Cart() {
       return <SpinnerLoading />;
     }
   };
-
+  let acum = 0;
+  console.log(User);
+  useEffect(() => {
+    if (ArrayCart) {
+      ArrayCart.forEach((element) => {
+        acum += element.price * element.count;
+      });
+      SetPriceTotal(acum);
+    }
+  }, [ArrayCart]);
   const AlertBuyComplete = () => {
-    Swal.fire({
-      icon: "success",
-      title: "Gracias por tu compra",
-      backdrop: "white",
-      text: "Se enviara a tu hotmail mas informacion",
-    });
+    const db = getFirestore();
+    if (ArrayCart && User) {
+      const FetchCheckoutUser = doc(db, "Usuarios", User[0].idUser);
+      getDoc(FetchCheckoutUser).then((snapshot) => {
+        if (snapshot.exists()) {
+          try {
+            const { name, email, img, phone, dni } = User[0];
+            const Order = {
+              buyer: {
+                name: name,
+                email: email,
+                img: img,
+                phone: phone,
+                dni: dni,
+              },
+              products: [...ArrayCart],
+              TotalPrice: PriceTotal,
+            };
+            const SendCheckoutAll = collection(db, "Checkouts");
+            addDoc(SendCheckoutAll, Order).then(({ id }) => {
+              const SendCheckoutUser = doc(db, "Usuarios", User[0].idUser);
+              updateDoc(SendCheckoutUser, {
+                checkout: [
+                  ...snapshot.data().checkout,
+                  { Produtcs: [...ArrayCart], OrderId: id },
+                ],
+              });
+              Swal.fire({
+                icon: "success",
+                title: "Gracias por tu compra",
+                backdrop: "white",
+                text: `Se enviara a tu hotmail mas informacion, Orden: ${id}`,
+              });
+            });
+            const ClearCartUser = doc(db, "Usuarios", User[0].idUser);
+            updateDoc(ClearCartUser, { cart: [] });
+            SetArrayCart(null);
+          } catch {
+            Swal.fire({
+              icon: "error",
+              title: "Hubo un error en nuestro sistema",
+              backdrop: "white",
+              text: "Si el error sigue persistiendo comuniquese con nosotros",
+            });
+          }
+        }
+      });
+    }
   };
   return (
     <ContCart>
@@ -56,7 +121,7 @@ function Cart() {
             <button onClick={() => AlertBuyComplete()}>Finalizar compra</button>
           </div>
           <div>
-            <p>$ 20.000</p>
+            <p>$ {PriceTotal}</p>
           </div>
         </div>
       </div>

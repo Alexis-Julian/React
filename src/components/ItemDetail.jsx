@@ -26,7 +26,7 @@ function ItemDetail() {
           idLink: ele.idLink,
           id: ele.id,
           img: ele.img,
-          price: ele.price,
+          price: parseInt(ele.price),
           title: ele.title,
           count: 1,
         };
@@ -44,6 +44,7 @@ function ItemDetail() {
     const db = getFirestore();
     const DbCart = doc(db, "Usuarios", User[0].idUser);
     updateDoc(DbCart, { cart: [...aux] });
+
     return aux;
   };
   /* Filtrado del producto */
