@@ -1,14 +1,7 @@
 /* //@ts-check */
 import React, { createContext, useState, useEffect } from "react";
-import { resolvePath } from "react-router-dom";
 import { DBGetLoginsLocalStorage } from "./FetchLogin";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  updateDoc,
-  doc,
-} from "firebase/firestore";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 export const ApiProductContext = createContext();
 

@@ -1,10 +1,10 @@
-//@ts-check
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { ApiProductContext } from "../helper/ContainerContext";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import SpinnerLoading from "./widgets/SppinerLoading";
+import CartItem from "./CartItem";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import {
@@ -20,32 +20,10 @@ AOS.init();
 function Cart() {
   const { SetArrayCart, ArrayCart, User } = useContext(ApiProductContext);
   const [PriceTotal, SetPriceTotal] = useState(0);
-  const RenderProductCard = () => {
-    if (ArrayCart) {
-      return ArrayCart.map((ele) => {
-        return (
-          <li key={ele.id} data-aos="fade-right" data-aos-duration="1000">
-            <div>
-              <figure>
-                <img src={ele.img} alt="" height={"100"} width={"100"} />
-              </figure>
-            </div>
-            <div>
-              <p>{ele.title}</p>
-            </div>
-            <div>
-              <p>Precio: $ {ele.price * ele.count}</p>
-            </div>
-            <div>Cant: ({ele.count})</div>
-          </li>
-        );
-      });
-    } else {
-      return <SpinnerLoading />;
-    }
-  };
+
   let acum = 0;
-  console.log(User);
+  console.log(ArrayCart);
+
   useEffect(() => {
     if (ArrayCart) {
       ArrayCart.forEach((element) => {
@@ -122,7 +100,9 @@ function Cart() {
       <div className="cart">
         <div className="cart__products">
           <nav>
-            <ul className="cart__products_list">{RenderProductCard()}</ul>
+            <ul className="cart__products_list">
+              <CartItem items={ArrayCart} />
+            </ul>
           </nav>
         </div>
         <div className="cart__button">

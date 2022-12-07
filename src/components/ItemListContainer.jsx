@@ -26,7 +26,7 @@ const ContItemListContainer = styled.ul`
   gap: 10px;
   overflow: scroll;
   height: 85vh;
-  width: 100vw;
+  width: 100%;
   .asdasd {
     position: absolute;
     height: 80%;

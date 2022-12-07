@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { BsFillPersonFill } from "react-icons/bs";
 import Close from "./widgets/Close";
 import styled from "styled-components";
@@ -51,11 +51,12 @@ const ContUser = styled.div`
 `;
 const ContDropDownMenu = styled.div`
   position: absolute;
-  height: 100vh;
-  width: 100vw;
   right: 0;
-  visibility: collapse;
+  left: 0;
+  top: 0;
   bottom: 0;
+  visibility: collapse;
+
   .MenuUser {
     visibility: visible;
     height: 100%;
@@ -73,6 +74,8 @@ const ContDropDownMenu = styled.div`
   }
   .cerratres {
     position: absolute;
+    font-size: 1.5em;
+    padding: 5px;
   }
 `;
 

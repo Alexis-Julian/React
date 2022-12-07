@@ -74,10 +74,9 @@ const ContNavBar = styled.header`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  z-index: 99999999999;
+  z-index: 100;
   height: 15vh;
+
   a {
     text-decoration: none;
     color: white;

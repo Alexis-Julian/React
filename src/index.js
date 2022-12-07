@@ -1,9 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { initializeApp } from "firebase/app";
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const firebaseConfig = {
@@ -17,7 +15,7 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 root.render(
-  <BrowserRouter>
+  <>
     <App />
-  </BrowserRouter>
+  </>
 );

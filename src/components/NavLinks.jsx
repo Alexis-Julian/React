@@ -9,11 +9,6 @@ function NavLinks(data) {
   const [UserConnected, SetUserConnected] = useState();
   const { HandleClick, BurgerActive } = data;
   const { DBPeticion } = useContext(ApiProductContext);
-  useEffect(() => {
-    return () => {
-      console.log("123");
-    };
-  }, []);
 
   useEffect(() => {
     DBPeticion("Categorias").then((res) => SetLinksDB(res));

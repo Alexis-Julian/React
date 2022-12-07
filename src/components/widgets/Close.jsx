@@ -1,8 +1,8 @@
-import { BsXOctagonFill } from "react-icons/bs";
+import { BsArrow90DegUp } from "react-icons/bs";
 import React from "react";
 
 function Close() {
-  return <BsXOctagonFill />;
+  return <BsArrow90DegUp />;
 }
 
 export default Close;
