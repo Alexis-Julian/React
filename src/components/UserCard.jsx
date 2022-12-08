@@ -9,7 +9,6 @@ import { Email } from "../helper/HelpFunction";
 function UserCard({ Usuario }) {
   const { User } = useContext(ApiProductContext);
   const { name, user, phone, img, dni, email } = Usuario[0];
-  console.log(email);
   const [Buys, SetBuys] = useState(null);
   const [Flip, SetFlip] = useState(false);
   useEffect(() => {

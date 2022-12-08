@@ -36,46 +36,50 @@ function NavBar() {
 
   return (
     <ContNavBar>
-      {NavLinks(data)}
-      <ContBurgUser>
-        <BurgerMenu>{BurgerStyles()}</BurgerMenu>
-        <UserWidget />
-      </ContBurgUser>
-      <Title>
-        <div>
-          <Link to={"/"}>
-            <h2>Jazmin</h2>
+      <div className="NavBar">
+        {NavLinks(data)}
+        <ContBurgUser>
+          <BurgerMenu>{BurgerStyles()}</BurgerMenu>
+          <UserWidget />
+        </ContBurgUser>
+        <Title>
+          <div>
+            <Link to={"/"}>
+              <h2>Jazmin</h2>
+            </Link>
+          </div>
+        </Title>
+        <ContIcons>
+          <Link
+            to={User ? "/cart" : "/."}
+            onClick={() => {
+              !User && HandleClickCartUser();
+            }}
+          >
+            <Cart />
           </Link>
-        </div>
-      </Title>
-      <ContIcons>
-        <Link
-          to={User ? "/cart" : "/."}
-          onClick={() => {
-            !User && HandleClickCartUser();
-          }}
-        >
-          <Cart />
-        </Link>
-        <Link to={"/heart"}>
-          <Heart />
-        </Link>
-      </ContIcons>
-      <Input>
-        <input type="text" placeholder="¿Que desea buscar?" />
-      </Input>
+          <Link to={"/heart"}>
+            <Heart />
+          </Link>
+        </ContIcons>
+        <Input>
+          <input type="text" placeholder="¿Que desea buscar?" />
+        </Input>
+      </div>
     </ContNavBar>
   );
 }
 /* Contiene la configuarion del navbar */
-const ContNavBar = styled.header`
-  background-color: #2c3333;
-  color: white;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  z-index: 100;
-  height: 15vh;
+export const ContNavBar = styled.header`
+  .NavBar {
+    background-color: rgba(13, 76, 146, 0.9);
+    color: white;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    z-index: 100;
+    height: 15vh;
+  }
 
   a {
     text-decoration: none;

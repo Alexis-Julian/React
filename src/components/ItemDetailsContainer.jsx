@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SppinerLoading from "./widgets/SppinerLoading";
 import { ApiProductContext } from "../helper/ContainerContext";
-import ItemDetail from "./ItemDetail";
 import ItemList from "./ItemList";
+import styled from "styled-components";
 function ItemDetailsContainer() {
   const { Products } = useContext(ApiProductContext);
   const [ProductsFilter, SetProductsFilter] = useState();
@@ -22,7 +22,12 @@ function ItemDetailsContainer() {
       return <SppinerLoading />;
     }
   };
-  return <div>{RenderCard()}</div>;
+  return <ContItemsDetails>{RenderCard()}</ContItemsDetails>;
 }
+
+const ContItemsDetails = styled.div`
+  height: 85vh;
+  overflow: scroll; ;
+`;
 
 export default ItemDetailsContainer;

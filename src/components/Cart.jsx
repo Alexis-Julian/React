@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
+import { redirect } from "react-router-dom";
 import styled from "styled-components";
 import { ApiProductContext } from "../helper/ContainerContext";
-import { Email } from "../helper/HelpFunction";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import SpinnerLoading from "./widgets/SppinerLoading";
@@ -23,7 +23,6 @@ function Cart() {
   const [PriceTotal, SetPriceTotal] = useState(0);
 
   let acum = 0;
-  console.log(ArrayCart);
 
   useEffect(() => {
     if (ArrayCart) {
@@ -52,14 +51,13 @@ function Cart() {
             const Order = {
               buyer: {
                 name: name,
-                email: Email(email),
+                email: email,
                 phone: phone,
                 dni: dni,
               },
               products: [...ArrayCart],
               TotalPrice: PriceTotal,
             };
-            console.log("e");
             const SendCheckoutAll = collection(db, "Checkouts");
             addDoc(SendCheckoutAll, Order).then(({ id }) => {
               const SendCheckoutUser = doc(db, "Usuarios", User[0].idUser);
@@ -84,6 +82,7 @@ function Cart() {
             const ClearCartUser = doc(db, "Usuarios", User[0].idUser);
             updateDoc(ClearCartUser, { cart: [] });
             SetArrayCart(null);
+            redirect("/");
           } catch {
             Swal.fire({
               icon: "error",

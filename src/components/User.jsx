@@ -63,7 +63,7 @@ const ContDropDownMenu = styled.div`
     width: 100%;
     -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
-    background-color: rgba(243, 243, 243, 0.2);
+    background-color: rgba(207, 245, 231, 0.5);
     transform: translateY(-1000px);
     transition: 700ms;
   }

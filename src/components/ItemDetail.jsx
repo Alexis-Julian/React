@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { ApiProductContext } from "../helper/ContainerContext";
 import SppinerLoading from "./widgets/SppinerLoading";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import {
   getFirestore,
   collection,
@@ -18,34 +19,38 @@ function ItemDetail() {
   /* Envio del agregado al carrito */
   let aux;
   const FuncAddCart = () => {
-    aux = ArrayCart;
-    /* Linea Ninja que mapea los productos y los filtra por lo que el cliente ingreso */
-    aux.push(
-      ...Products.map((ele) => {
-        return {
-          idLink: ele.idLink,
-          id: ele.id,
-          img: ele.img,
-          price: parseInt(ele.price),
-          title: ele.title,
-          count: 1,
-        };
-      }).filter((ele) => ele.idLink == idp)
-    );
-    /* Busqueda para saber si el producto esta repetido agrega uno a count si esto es cierto */
-    for (let i = 0; i < ArrayCart.length - 1; i++) {
-      for (let x = i + 1; x < ArrayCart.length; x++) {
-        if (ArrayCart[i].idLink == ArrayCart[x].idLink) {
-          ArrayCart[i].count += 1;
-          aux.splice(x);
+    if (User) {
+      aux = ArrayCart;
+      /* Linea Ninja que mapea los productos y los filtra por lo que el cliente ingreso */
+      aux.push(
+        ...Products.map((ele) => {
+          return {
+            idLink: ele.idLink,
+            id: ele.id,
+            img: ele.img,
+            price: parseInt(ele.price),
+            title: ele.title,
+            count: 1,
+          };
+        }).filter((ele) => ele.idLink == idp)
+      );
+      /* Busqueda para saber si el producto esta repetido agrega uno a count si esto es cierto */
+      for (let i = 0; i < ArrayCart.length - 1; i++) {
+        for (let x = i + 1; x < ArrayCart.length; x++) {
+          if (ArrayCart[i].idLink == ArrayCart[x].idLink) {
+            ArrayCart[i].count += 1;
+            aux.splice(x);
+          }
         }
       }
-    }
-    const db = getFirestore();
-    const DbCart = doc(db, "Usuarios", User[0].idUser);
-    updateDoc(DbCart, { cart: [...aux] });
+      const db = getFirestore();
+      const DbCart = doc(db, "Usuarios", User[0].idUser);
+      updateDoc(DbCart, { cart: [...aux] });
 
-    return aux;
+      return aux;
+    } else {
+      HandleClickCartUser();
+    }
   };
   /* Filtrado del producto */
   const [DetailProduct, SetDetailProduct] = useState();
@@ -55,6 +60,13 @@ function ItemDetail() {
     }
   }, [Products]);
   /* Renderizacion de la tarjeta de detailitem */
+
+  const HandleClickCartUser = () => {
+    Swal.fire({
+      title: "Error",
+      text: "Debes iniciar sesion ",
+    });
+  };
   const RenderDetailItem = () => {
     if (DetailProduct) {
       const { category, description, img, price, rate, title } =
@@ -73,9 +85,10 @@ function ItemDetail() {
             </figure>
           </div>
           <div className="ItemDetail__buttons">
-            <span>
-              <p>{description}</p>
-            </span>
+            <details>
+              <summary>Detalles </summary>
+              {description}
+            </details>
             <div
               onClick={() => {
                 SetArrayCart(FuncAddCart);
@@ -102,6 +115,7 @@ const ContItem = styled.div`
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   height: 85vh;
+  overflow: scroll;
   .ItemDetail__info {
     display: flex;
     justify-content: center;
@@ -130,24 +144,25 @@ const ContItem = styled.div`
     align-items: center;
     figure {
       padding: 1em;
-      border: 1px solid;
       border-radius: 5%;
       background: rgb(255, 255, 255);
       img {
         min-width: 80%;
+        border-radius: 5px;
       }
     }
   }
   .ItemDetail__buttons {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr 0.4fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    span {
-      grid-row: 1/2;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 0.4fr 1fr;
+    /* background-color: rgba(207, 245, 231, 0.5); */
+    border-radius: 2px;
+    details {
+      grid-row: 2/3;
       grid-column: 1/4;
       display: flex;
+      position: block;
       text-align: center;
       font-weight: 300;
       align-items: center;
@@ -155,17 +170,17 @@ const ContItem = styled.div`
       padding: 5px;
     }
     div {
-      grid-row: 2/3;
+      grid-row: 1/2;
       flex-grow: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       button {
-        padding: 5px 8px;
-        background-color: rgb(255, 255, 255);
+        background-color: rgb(160, 228, 203, 0.5);
         border: 1px solid black;
         border-radius: 5px;
-        box-shadow: 0 2px 5px;
+        min-width: 80%;
+        padding: 5px;
       }
     }
   }

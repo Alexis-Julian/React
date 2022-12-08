@@ -99,7 +99,7 @@ const ContDropRightMenu = styled.div`
       border: 1px solid black;
       a {
         &:first-child {
-          background-color: gray;
+          background-color: #0d4c92;
           color: white;
         }
         color: black;

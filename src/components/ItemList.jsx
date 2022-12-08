@@ -6,6 +6,9 @@ function ItemList({ Product }) {
   const { idLink, id, title, category, img, price, rate } = Product;
   return (
     <ContCard>
+      <div className="ContCard__Line">
+        <div></div>
+      </div>
       <div className="ContCard__imgrate">
         <Link to={`/category/${category}/${idLink}`}>
           <figure>
@@ -15,26 +18,43 @@ function ItemList({ Product }) {
       </div>
       <div className="ContCard__info">
         <div className="ContCard__category">{category}</div>
-        <div className="ContCard__description">{title}</div>
-        <div className="ContCard__price">
-          <p>$ {price}</p> <i>⭐{rate}</i>
-        </div>
+      </div>
+      <div className="ContCard__description">
+        <div>{title}</div>
+      </div>
+      <div className="ContCard__price">
+        <p>$ {price}</p> <i>⭐ {rate}</i>
       </div>
     </ContCard>
   );
 }
 
 const ContCard = styled.li`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   height: 300px;
   width: 100%;
   margin-top: 5px;
+  .ContCard__Line {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+    div {
+      height: 2px;
+      width: 90%;
+      background-color: #0d4c92;
+    }
+  }
   .ContCard__imgrate {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
-    width: 50%;
+    width: 100%;
+    grid-row: 2/4;
+    grid-column: 1/2;
     figure {
       border: 1px solid black;
       padding: 10px;
@@ -44,28 +64,46 @@ const ContCard = styled.li`
   }
   /* Zona de info */
   .ContCard__info {
-    width: 50%;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    grid-row: 1/2;
+    grid-column: 2/3;
     .ContCard__category {
-      flex-grow: 1;
-      width: 100%;
-      text-align: center;
-      text-transform: uppercase;
-    }
-    .ContCard__description {
-      flex-grow: 1;
-      text-align: center;
-      font-size: 17px;
-    }
-    .ContCard__price {
       display: flex;
       align-items: center;
-      justify-content: space-around;
-      p {
-        font-size: 20px;
-        font-weight: 800;
-      }
+      justify-content: center;
+      text-align: center;
+      text-transform: uppercase;
+      height: 100%;
+    }
+  }
+
+  .ContCard__description {
+    text-align: center;
+    font-size: 17px;
+    grid-row: 2/3;
+    height: 100%;
+    div {
+      display: flex;
+      height: 100%;
+      font-weight: 300;
+      align-items: flex-end;
+    }
+  }
+  .ContCard__price {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    grid-row: 3/4;
+    p {
+      font-size: 20px;
+      font-weight: 200;
+      margin-bottom: 6px;
+    }
+    i {
+      font-weight: 200;
+      margin-bottom: 9px;
     }
   }
 `;

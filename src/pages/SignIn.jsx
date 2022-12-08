@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import NavBar from "../components/NavBar";
 import { useForm } from "react-hook-form";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 function SignIn() {
@@ -21,6 +20,7 @@ function SignIn() {
           <div>
             <input
               type="email"
+              autocomplete="off"
               placeholder="Email"
               {...register("email")}
               required
@@ -28,8 +28,9 @@ function SignIn() {
           </div>
           <div>
             <input
-              type="password"
-              placeholder="Contraseña"
+              type="text"
+              placeholder="Nombre de usuario"
+              autocomplete="off"
               {...register("password")}
               required
             />
@@ -37,13 +38,19 @@ function SignIn() {
           <div>
             <input
               type="password"
-              placeholder="Confirmar contraseña"
-              {...register("passwordtwo")}
+              placeholder="Contraseña"
+              autocomplete="off"
+              {...register("password")}
               required
             />
           </div>
           <div>
-            <input type="date" {...register("date")} required />
+            <input
+              type="date"
+              {...register("date")}
+              required
+              autocomplete="off"
+            />
           </div>
           <div>
             <p>Informacion personal</p>
@@ -52,6 +59,7 @@ function SignIn() {
             <input
               type="text"
               placeholder="Nombre"
+              autocomplete="off"
               {...register("name")}
               required
             />
@@ -60,6 +68,7 @@ function SignIn() {
             <input
               type="text"
               placeholder=" Apellido"
+              autocomplete="off"
               {...register("surname")}
               required
             />
@@ -68,6 +77,7 @@ function SignIn() {
             <input
               type="text"
               placeholder="Numero de DNI o CUIT"
+              autocomplete="off"
               {...register("dni")}
               required
             />
@@ -76,6 +86,7 @@ function SignIn() {
             <input
               type="number"
               placeholder="Numero de telefono"
+              autocomplete="off"
               {...register("phone")}
               required
             />
@@ -165,4 +176,5 @@ const ContSignIn = styled.div`
     }
   }
 `;
+
 export default SignIn;
