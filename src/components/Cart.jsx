@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { ApiProductContext } from "../helper/ContainerContext";
+import { Email } from "../helper/HelpFunction";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import SpinnerLoading from "./widgets/SppinerLoading";
@@ -51,14 +52,14 @@ function Cart() {
             const Order = {
               buyer: {
                 name: name,
-                email: email,
-                img: img,
+                email: Email(email),
                 phone: phone,
                 dni: dni,
               },
               products: [...ArrayCart],
               TotalPrice: PriceTotal,
             };
+            console.log("e");
             const SendCheckoutAll = collection(db, "Checkouts");
             addDoc(SendCheckoutAll, Order).then(({ id }) => {
               const SendCheckoutUser = doc(db, "Usuarios", User[0].idUser);
@@ -88,7 +89,7 @@ function Cart() {
               icon: "error",
               title: "Hubo un error en nuestro sistema",
               backdrop: "white",
-              text: "Si el error sigue persistiendo comuniquese con nosotros",
+              text: "Si el ERROR sigue persistiendo comuniquese con nosotros",
             });
           }
         }

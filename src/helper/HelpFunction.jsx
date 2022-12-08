@@ -10,3 +10,15 @@
   return result.join("");
 }
  */
+
+export const Email = (email) => {
+  let aux = "";
+  for (let i = 0; i < email.length; i++) {
+    if (email[i] !== "@") {
+      aux += email[i];
+    } else {
+      return aux;
+      break;
+    }
+  }
+};

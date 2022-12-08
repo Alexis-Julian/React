@@ -12,11 +12,15 @@ import {
 export const DBGetLogins = async (aetUser, Checked) => {
   const { userlog } = aetUser;
   const db = getFirestore();
-  const users = query(collection(db, "Usuarios"), where("user", "==", userlog));
+  const users = query(
+    collection(db, "Usuarios"),
+    where("email", "==", userlog)
+  );
+  console.log(userlog);
   const Login = new Promise((resolve, reject) => {
     getDocs(users).then((res) => {
       const UserNormalized = res.docs.map((ele) => {
-        return { userlog: ele.data().user, password: ele.data().password };
+        return { userlog: ele.data().email, password: ele.data().password };
       });
       UserNormalized.push(aetUser);
       JSON.stringify(UserNormalized[0]) === JSON.stringify(UserNormalized[1])

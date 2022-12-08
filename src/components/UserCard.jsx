@@ -5,9 +5,11 @@ import SppinerLoading from "./widgets/SppinerLoading";
 import { ApiProductContext } from "../helper/ContainerContext";
 import CartItem from "./CartItem";
 import UserCardCloseWidget from "./UserCardCloseWidget";
+import { Email } from "../helper/HelpFunction";
 function UserCard({ Usuario }) {
   const { User } = useContext(ApiProductContext);
-  const { name, user, phone, img, dni } = Usuario[0];
+  const { name, user, phone, img, dni, email } = Usuario[0];
+  console.log(email);
   const [Buys, SetBuys] = useState(null);
   const [Flip, SetFlip] = useState(false);
   useEffect(() => {
@@ -20,16 +22,24 @@ function UserCard({ Usuario }) {
       return Buys.map((ele) => {
         return (
           <li className="list_orders" key={ele.OrderId}>
-            <div>{ele.Date}</div>
-            <div>{ele.OrderId}</div>
-            <button
-              id={ele.OrderId}
-              onClick={() => {
-                SetFlip([!Flip, ele.OrderId]);
-              }}
-            >
-              Front
-            </button>
+            <div className="list_order_info">
+              <div>{ele.Date}</div>
+              <div> {ele.OrderId}</div>
+            </div>
+            <div className="list_order_details">
+              <p>Fecha: </p>
+              <p>Orden de compra: </p>
+            </div>
+            <div className="list_order_showhistory">
+              <button
+                id={ele.OrderId}
+                onClick={() => {
+                  SetFlip([!Flip, ele.OrderId]);
+                }}
+              >
+                Mas Detalles
+              </button>
+            </div>
           </li>
         );
       });
@@ -84,7 +94,7 @@ function UserCard({ Usuario }) {
               </li>
               <li>
                 <div>Email</div>
-                <i>alexisjrojas</i>
+                <i>{Email(email)}</i>
               </li>
               <li>
                 <div>Usuario</div>
@@ -93,6 +103,7 @@ function UserCard({ Usuario }) {
               </li>
             </ul>
             <nav className="ContUser__orders">
+              <div className="list_order_showinfo">Historial de compras</div>
               <ul className="CountUser__orders-lista">
                 <RenderOrdersId />
               </ul>
@@ -199,6 +210,7 @@ const ContUser = styled.div`
             }
             h2 {
               font-weight: 500;
+              font-size: 1.4em;
               color: #434242;
               border-bottom: 1px solid;
             }
@@ -232,21 +244,55 @@ const ContUser = styled.div`
         }
         .ContUser__orders {
           height: 100%;
+          overflow: scroll;
+          .list_order_showinfo {
+            font-size: 1em;
+            display: flex;
+            justify-content: center;
+            color: #0d4c92;
+            font-weight: 200;
+            text-transform: uppercase;
+          }
           .CountUser__orders-lista {
             display: flex;
             height: 100%;
             flex-direction: column;
             gap: 10px;
             .list_orders {
-              flex-grow: 1;
-              display: flex;
+              display: grid;
+              grid-template-columns: repeat(2, 1fr);
+              grid-template-rows: repeat(2, 1fr);
               padding: 2px;
               -webkit-backdrop-filter: blur(15px);
               backdrop-filter: blur(2px);
               background-color: rgba(207, 245, 231, 0.4);
-              div {
+              font-size: 0.8em;
+              text-align: center;
+              color: #0d4c92;
+              .list_order_info {
+                grid-column: 2/3;
+                grid-row: 1/2;
+                font-weight: 300;
+              }
+              .list_order_details {
+                grid-column: 1/2;
+                grid-row: 1/2;
+              }
+              .list_order_showhistory {
+                grid-column: 1/3;
+                grid-row: 2/3;
                 display: flex;
-                flex-grow: 1;
+                justify-content: center;
+                align-items: center;
+                button {
+                  background-color: rgba(89, 193, 189, 0.8);
+                  font-weight: 400;
+                  color: white;
+                  border-radius: 2px;
+                  border: none;
+                  padding: 0.2em;
+                  min-width: 30%;
+                }
               }
             }
           }

@@ -9,6 +9,7 @@ function SignIn() {
   const Users = collection(db, "Usuarios");
   const { register, handleSubmit } = useForm();
   const OnSubmit = (data) => {
+    data = { ...data, cart: [], checkout: [] };
     addDoc(Users, data).then((res) => console.log(res.id));
   };
   return (
@@ -19,7 +20,7 @@ function SignIn() {
         <form onSubmit={handleSubmit(OnSubmit)}>
           <div>
             <input
-              type="text"
+              type="email"
               placeholder="Email"
               {...register("email")}
               required

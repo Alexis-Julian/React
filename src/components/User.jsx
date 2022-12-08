@@ -76,6 +76,7 @@ const ContDropDownMenu = styled.div`
     position: absolute;
     font-size: 1.5em;
     padding: 5px;
+    z-index: 100;
   }
 `;
 
