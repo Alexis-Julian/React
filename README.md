@@ -27,7 +27,7 @@ In the project directory, you can run:
 
 ### Deploy en Vercel
 
-App:https://react-olive-eta.vercel.app/ (Adapatada solamente a celular)
+App:https://react-20il6sdz9-alexis-julian.vercel.app/ (Adapatada solamente a celular)
 Cuenta de prueba : Usuario: Buzzar, password:123
 
 ### Motivo de creacion : Fines educativos
