@@ -4,6 +4,7 @@ import { ApiProductContext } from "../helper/ContainerContext";
 import SppinerLoading from "./widgets/SppinerLoading";
 import styled from "styled-components";
 import Swal from "sweetalert2";
+import ItemQuantitySelector from "./ItemQuantitySelector";
 import {
   getFirestore,
   collection,
@@ -16,9 +17,81 @@ function ItemDetail() {
   const { Products, SetArrayCart, ArrayCart, User } =
     useContext(ApiProductContext);
   let { idp } = useParams();
-  /* Envio del agregado al carrito */
-  let aux;
-  const FuncAddCart = () => {
+
+  /* Filtrado del producto
+   */
+
+  const [DetailProduct, SetDetailProduct] = useState();
+  useEffect(() => {
+    if (Products) {
+      SetDetailProduct(Products.filter((ele) => ele.idLink === idp));
+    }
+  }, [Products]);
+
+  /* Modificacionde cantidad
+   */
+
+  const [ActiveQuantity, SetActiveQuantity] = useState(false);
+  const [CantProduct, SetCantProduct] = useState(1);
+  const ItemQuantitySelector = () => {
+    const EventClickCount = (e) => {
+      if (e.target.value < 5 && e.target.value) {
+        SetCantProduct(e.target.value);
+        SetActiveQuantity(!ActiveQuantity);
+      }
+    };
+
+    const HandleKeyPress = (e) => {
+      if (e.key == "Enter") {
+        SetCantProduct(e.target.value);
+        if (!e.target.value) {
+          SetCantProduct(1);
+        }
+        SetActiveQuantity(!ActiveQuantity);
+      }
+    };
+    return (
+      <ContItemQuantitySelector>
+        <div
+          className={
+            ActiveQuantity ? "ContInputsCounts Active" : "ContInputsCounts"
+          }
+        >
+          <ul onClick={(e) => EventClickCount(e)}>
+            <li>
+              <input type="text" value={1} disabled />
+            </li>
+            <li>
+              <input type="text" value={2} disabled />
+            </li>
+            <li>
+              <input type="text" value={3} disabled />
+            </li>
+            <li>
+              <input className="" type="text" value={4} disabled />
+            </li>
+            <li onKeyPress={(e) => HandleKeyPress(e)}>
+              <input id="Count" type="number" placeholder="Ingrese cantidad" />
+            </li>
+          </ul>
+        </div>
+      </ContItemQuantitySelector>
+    );
+  };
+
+  /* Envio del agregado al carrito
+   */
+
+  const AddItemButton = () => {
+    let aux;
+    /* Renderizacion de la tarjeta de detailitem
+     */
+    const HandleClickCartUser = () => {
+      Swal.fire({
+        title: "Error",
+        text: "Debes iniciar sesion ",
+      });
+    };
     if (User) {
       aux = ArrayCart;
       /* Linea Ninja que mapea los productos y los filtra por lo que el cliente ingreso */
@@ -30,7 +103,7 @@ function ItemDetail() {
             img: ele.img,
             price: parseInt(ele.price),
             title: ele.title,
-            count: 1,
+            count: CantProduct,
           };
         }).filter((ele) => ele.idLink == idp)
       );
@@ -52,21 +125,10 @@ function ItemDetail() {
       HandleClickCartUser();
     }
   };
-  /* Filtrado del producto */
-  const [DetailProduct, SetDetailProduct] = useState();
-  useEffect(() => {
-    if (Products) {
-      SetDetailProduct(Products.filter((ele) => ele.idLink === idp));
-    }
-  }, [Products]);
-  /* Renderizacion de la tarjeta de detailitem */
 
-  const HandleClickCartUser = () => {
-    Swal.fire({
-      title: "Error",
-      text: "Debes iniciar sesion ",
-    });
-  };
+  /* Renderizacion de los items
+   */
+
   const RenderDetailItem = () => {
     if (DetailProduct) {
       const { category, description, img, price, rate, title } =
@@ -91,14 +153,15 @@ function ItemDetail() {
             </details>
             <div
               onClick={() => {
-                SetArrayCart(FuncAddCart);
+                SetArrayCart(AddItemButton);
               }}
             >
               <button>Agregar al carrito</button>
             </div>
-            <div>
-              <button>Cantidad</button>
+            <div onClick={() => SetActiveQuantity(!ActiveQuantity)}>
+              <button>Cantidad ({CantProduct})</button>
             </div>
+            {ItemQuantitySelector()}
           </div>
         </ContItem>
       );
@@ -106,8 +169,10 @@ function ItemDetail() {
       return <SppinerLoading />;
     }
   };
+
   return <>{RenderDetailItem()}</>;
 }
+
 const ContItem = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -183,6 +248,51 @@ const ContItem = styled.div`
         padding: 5px;
       }
     }
+  }
+`;
+
+const ContItemQuantitySelector = styled.div`
+  position: absolute;
+  height: 30%;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  visibility: collapse;
+  overflow: hidden;
+  .ContInputsCounts {
+    background-color: cyan;
+    visibility: visible;
+    transform: translateY(300px);
+    transition: 300ms;
+    height: 100%;
+    ul {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      background: white;
+      li {
+        flex-grow: 1;
+        list-style: none;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid #48fafa;
+        input {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          text-align: center;
+          border: none;
+          background-color: white;
+        }
+      }
+    }
+  }
+  .Active {
+    transform: translateY(0);
+    transition: 300ms;
   }
 `;
 export default ItemDetail;

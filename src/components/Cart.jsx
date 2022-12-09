@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import styled from "styled-components";
 import { ApiProductContext } from "../helper/ContainerContext";
 import Swal from "sweetalert2";
@@ -82,7 +82,6 @@ function Cart() {
             const ClearCartUser = doc(db, "Usuarios", User[0].idUser);
             updateDoc(ClearCartUser, { cart: [] });
             SetArrayCart(null);
-            redirect("/");
           } catch {
             Swal.fire({
               icon: "error",
@@ -175,7 +174,7 @@ const ContCart = styled.div`
       min-height: 10%;
       flex-grow: 1;
       border-radius: 5%;
-      background-color: #2c3333;
+      background-color: rgba(89, 193, 189, 0.9);
       display: flex;
       div {
         flex-grow: 1;
