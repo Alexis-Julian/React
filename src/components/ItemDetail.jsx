@@ -4,7 +4,6 @@ import { ApiProductContext } from "../helper/ContainerContext";
 import SppinerLoading from "./widgets/SppinerLoading";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import ItemQuantitySelector from "./ItemQuantitySelector";
 import {
   getFirestore,
   collection,
