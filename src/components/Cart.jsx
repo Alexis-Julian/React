@@ -81,7 +81,7 @@ function Cart() {
             });
             const ClearCartUser = doc(db, "Usuarios", User[0].idUser);
             updateDoc(ClearCartUser, { cart: [] });
-            SetArrayCart(null);
+            SetArrayCart([]);
           } catch {
             Swal.fire({
               icon: "error",

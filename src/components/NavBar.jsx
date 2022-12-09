@@ -32,7 +32,7 @@ function NavBar() {
       </div>
     );
   };
-  const data = { HandleClick, BurgerActive };
+  const data = { HandleClick, BurgerActive, SetBurgerActive };
 
   return (
     <ContNavBar>

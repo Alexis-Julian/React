@@ -43,7 +43,7 @@ function ItemDetail() {
     const HandleKeyPress = (e) => {
       if (e.key == "Enter") {
         SetCantProduct(e.target.value);
-        if (!e.target.value) {
+        if (!e.target.value || e.target.value === 0) {
           SetCantProduct(1);
         }
         SetActiveQuantity(!ActiveQuantity);

@@ -7,7 +7,7 @@ function NavLinks(data) {
   const { User, SetUser } = useContext(ApiProductContext);
   const [LinksDB, SetLinksDB] = useState();
   const [UserConnected, SetUserConnected] = useState();
-  const { HandleClick, BurgerActive } = data;
+  const { HandleClick, BurgerActive, SetBurgerActive } = data;
   const { DBPeticion } = useContext(ApiProductContext);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ function NavLinks(data) {
   return (
     <ContDropRightMenu>
       <nav className={`Nav ${BurgerActive ? "" : String(BurgerActive)}`}>
-        <ul>
+        <ul onClick={() => SetBurgerActive(!BurgerActive)}>
           <Link to={"/"}>
             <li>Inicio</li>
           </Link>
