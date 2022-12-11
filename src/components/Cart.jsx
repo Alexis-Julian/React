@@ -1,13 +1,10 @@
-import React, { useContext, useState } from "react";
-import { Navigate } from "react-router-dom";
+import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import { ApiProductContext } from "../helper/ContainerContext";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import SpinnerLoading from "./widgets/SppinerLoading";
 import CartItem from "./CartItem";
 import "aos/dist/aos.css";
-import { useEffect } from "react";
 import {
   getFirestore,
   collection,
@@ -20,11 +17,11 @@ AOS.init();
 
 function Cart() {
   const { SetArrayCart, ArrayCart, User } = useContext(ApiProductContext);
+
   const [PriceTotal, SetPriceTotal] = useState(0);
 
-  let acum = 0;
-
   useEffect(() => {
+    let acum = 0;
     if (ArrayCart) {
       ArrayCart.forEach((element) => {
         acum += element.price * element.count;
@@ -47,7 +44,7 @@ function Cart() {
       getDoc(FetchCheckoutUser).then((snapshot) => {
         if (snapshot.exists()) {
           try {
-            const { name, email, img, phone, dni } = User[0];
+            const { name, email, phone, dni } = User[0];
             const Order = {
               buyer: {
                 name: name,

@@ -26,7 +26,7 @@ function CartItem({ items }) {
       return <SppinerLoading />;
     }
   };
-  return <div>{RenderProductCard(items)}</div>;
+  return <>{RenderProductCard(items)}</>;
 }
 
 export default CartItem;

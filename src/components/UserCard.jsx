@@ -228,16 +228,17 @@ const ContUser = styled.div`
             flex-direction: column;
             text-align: center;
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 300;
             width: 100%;
-            color: transparent;
-            -webkit-text-stroke: 0.8px #222222;
+            color: #59c1bd;
+            /* color: transparent;
+            -webkit-text-stroke: 0.8px #222222; */
             gap: 2px;
             i {
               font-size: 16px;
               font-weight: 500;
               letter-spacing: 1px;
-              color: white;
+              color: #0d4c92;
             }
           }
         }

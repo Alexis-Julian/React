@@ -211,6 +211,8 @@ const Input = styled.div`
   grid-column: 1/4;
   display: grid;
   padding: 8px;
+  input {
+  }
 `;
 
 export default NavBar;

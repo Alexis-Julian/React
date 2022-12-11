@@ -8,6 +8,8 @@ import { ApiProductContext } from "../helper/ContainerContext";
 
 function UserWidget() {
   const { User } = useContext(ApiProductContext);
+  console.log(User);
+
   /* Click al icono de user */
   const [ActiveMenuUser, SetActiveMenuUser] = useState(false);
   const HandleClickMenuUser = () => {

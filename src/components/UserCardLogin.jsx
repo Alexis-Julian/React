@@ -44,6 +44,7 @@ function UserCardLogin({ alert, HandleClick }) {
               <input
                 type="text"
                 placeholder="Ingrese su email"
+                autoComplete="off"
                 {...register("userlog")}
               />
             </div>
@@ -51,6 +52,7 @@ function UserCardLogin({ alert, HandleClick }) {
               <input
                 type="password"
                 placeholder="Ingrese su contraseña"
+                autoComplete="off"
                 {...register("password")}
               />
             </div>
