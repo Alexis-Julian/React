@@ -6,16 +6,34 @@ import { ApiProductContext } from "../helper/ContainerContext";
 import CartItem from "./CartItem";
 import UserCardCloseWidget from "./UserCardCloseWidget";
 import { Email } from "../helper/HelpFunction";
+import ReloadWidget from "./ReloadWidget";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
+
 function UserCard({ Usuario }) {
-  const { User } = useContext(ApiProductContext);
+  const { User, SetUser } = useContext(ApiProductContext);
   const { name, user, phone, img, dni, email } = Usuario[0];
   const [Buys, SetBuys] = useState(null);
   const [Flip, SetFlip] = useState(false);
+  const [Reload, SetReload] = useState(false);
+
   useEffect(() => {
     if (User) {
       SetBuys(User[0].checkout);
     }
   }, [User]);
+
+  useEffect(() => {
+    const db = getFirestore();
+    const GetCheckout = doc(db, "Usuarios", User[0].idUser);
+    getDoc(GetCheckout).then((snapshot) => {
+      let aux = [...User];
+      aux[0].checkout = snapshot.data().checkout;
+      aux[0].cart = snapshot.data().cart;
+      SetUser(aux);
+      /* SetUser(aux); */
+    });
+  }, [Reload]);
+
   const RenderOrdersId = () => {
     if (Buys) {
       return Buys.map((ele) => {
@@ -46,6 +64,7 @@ function UserCard({ Usuario }) {
       return <div>Cargando..</div>;
     }
   };
+
   const RenderOrderBack = (e) => {
     if (Flip[1]) {
       const FilterProductsOrder = Buys.find((ele) => ele.OrderId === Flip[1]);
@@ -102,7 +121,15 @@ function UserCard({ Usuario }) {
               </li>
             </ul>
             <nav className="ContUser__orders">
-              <div className="list_order_showinfo">Historial de compras</div>
+              <div className="list_order_showinfo">
+                <p>Historial de compras</p>
+                <p
+                  className="list_order_showinfo_widget"
+                  onClick={() => SetReload(!Reload)}
+                >
+                  <ReloadWidget />
+                </p>
+              </div>
               <ul className="CountUser__orders-lista">
                 <RenderOrdersId />
               </ul>
@@ -248,10 +275,14 @@ const ContUser = styled.div`
           .list_order_showinfo {
             font-size: 1em;
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
+            align-items: center;
             color: #0d4c92;
-            font-weight: 200;
+            font-weight: 400;
             text-transform: uppercase;
+            .list_order_showinfo_widget {
+              font-size: 20px;
+            }
           }
           .CountUser__orders-lista {
             display: flex;
